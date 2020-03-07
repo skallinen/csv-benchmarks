@@ -207,28 +207,25 @@
 
 ;; # ultra-csv library JVM
 ;; ;; [https://github.com/ngrunwald/ultra-csv](https://github.com/metasoarous/semantic-csv)
+;; Calling `doall` to realize the lazy sequence
 
 ;;
 (require '[ultra-csv.core :as ultra])
-(time (count (ultra/read-csv path)))
-(bench (count (ultra/read-csv path)))
+(time (doall (ultra/read-csv path)))
+(bench (doall (ultra/read-csv path)))
 
 
 ;; ## Single pass:
 ;; "Elapsed time: 8164.097362 msecs"
 ;;
 ;; ## Using criterium.core/bench 
-;; <pre><code>"Elapsed time: 38.625054 msecs"
-;; Evaluation count : 31140 in 60 samples of 519 calls.
-;; Execution time mean : 1.918202 ms
-;; Execution time std-deviation : 8.073095 µs
-;; Execution time lower quantile : 1.912235 ms ( 2.5%)
-;; Execution time upper quantile : 1.942727 ms (97.5%)
-;; Overhead used : 1.252094 ns
-;; Found 8 outliers in 60 samples (13.3333 %)
-;; low-severe    3 (5.0000 %)
-;; low-mild      5 (8.3333 %)
-;; Variance from outliers : 1.6389 % Variance is slightly inflated by outliers </pre></code>
+;; <pre><code>
+;; Evaluation count : 60 in 60 samples of 1 calls.
+;; Execution time mean : 8.089508 sec
+;; Execution time std-deviation : 10.512752 ms
+;; Execution time lower quantile : 8.069749 sec ( 2.5%)
+;; Execution time upper quantile : 8.106749 sec (97.5%)
+;; Overhead used : 1.252112 ns</pre></code>
 ;;  
 ;;  
 ;; <br/><br/>  

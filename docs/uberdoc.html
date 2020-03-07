@@ -3031,27 +3031,24 @@ inflated by outliers</pre></code></p>
 <hr /></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><h1>ultra-csv library JVM</h1>
 
-<p> <a href="https://github.com/metasoarous/semantic-csv">https://github.com/ngrunwald/ultra-csv</a></p>
+<p> <a href="https://github.com/metasoarous/semantic-csv">https://github.com/ngrunwald/ultra-csv</a>
+Calling <code>doall</code> to realize the lazy sequence</p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(require '[ultra-csv.core :as ultra])
-(time (count (ultra/read-csv path)))
-(bench (count (ultra/read-csv path)))</pre></td></tr><tr><td class="docs"><h2>Single pass:</h2>
+(time (doall (ultra/read-csv path)))
+(bench (doall (ultra/read-csv path)))</pre></td></tr><tr><td class="docs"><h2>Single pass:</h2>
 
 <p>"Elapsed time: 8164.097362 msecs"</p>
 
 <h2>Using criterium.core/bench</h2>
 
-<p><pre><code>"Elapsed time: 38.625054 msecs"
-Evaluation count : 31140 in 60 samples of 519 calls.
-Execution time mean : 1.918202 ms
-Execution time std-deviation : 8.073095 µs
-Execution time lower quantile : 1.912235 ms ( 2.5%)
-Execution time upper quantile : 1.942727 ms (97.5%)
-Overhead used : 1.252094 ns
-Found 8 outliers in 60 samples (13.3333 %)
-low-severe    3 (5.0000 %)
-low-mild      5 (8.3333 %)
-Variance from outliers : 1.6389 % Variance is slightly inflated by outliers </pre></code></p>
+<p><pre><code>
+Evaluation count : 60 in 60 samples of 1 calls.
+Execution time mean : 8.089508 sec
+Execution time std-deviation : 10.512752 ms
+Execution time lower quantile : 8.069749 sec ( 2.5%)
+Execution time upper quantile : 8.106749 sec (97.5%)
+Overhead used : 1.252112 ns</pre></code></p>
 
 <p><br/><br/> <br />
 <hr /></p>
