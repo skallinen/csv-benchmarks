@@ -2962,8 +2962,13 @@ Clojure 1.10.0, Java 1.8.0_242</p>
 6430911,0.7,2019-07-21 00:00:00+00,1,4451402197108,,995233414,</pre></code>
 <br/><br/> <br />
 <hr /></p>
+</td><td class="codes"></td></tr><tr><td class="docs"><h1>CSV libraries</h1>
+
+<p>What are the clojure options for loading CSV:s? There are a number of libraries out there both native Clojure and through Java, R and Python interop. Interested in the speed here, but good to remember that speed is not everything. CSV:s can have quite some edge cases that many libraries cannot handle.
+<br />
+Measuring both a single pass and multiple samples. Good to remember that usually for most cases when working with data science you need to do the loading once.</p>
 </td><td class="codes"></td></tr><tr><td class="docs"><h1>Benchmarking lib</h1>
-</td><td class="codes"><pre class="brush: clojure">(require '[criterium.core :as b])</pre></td></tr><tr><td class="docs"><p><br/><br/> <br />
+</td><td class="codes"><pre class="brush: clojure">(require '[criterium.core :refer [bench]])</pre></td></tr><tr><td class="docs"><p><br/><br/> <br />
 <hr /></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><h2>clojure.data.csv JVM</h2>
 </td><td class="codes"><pre class="brush: clojure">(require '[clojure.data.csv :as csv]
@@ -2982,7 +2987,7 @@ Clojure 1.10.0, Java 1.8.0_242</p>
 <p><br/><br/> <br />
 <hr /></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><h1>tech.ml.dataset JVM</h1>
-</td><td class="codes"><pre class="brush: clojure">(b/bench
+</td><td class="codes"><pre class="brush: clojure">(bench
  (d/-&gt;dataset path))</pre></td></tr><tr><td class="docs"><h2>Single pass with (time):</h2>
 
 <p> "Elapsed time: 1096.673491 msecs"</p>
@@ -3003,7 +3008,7 @@ Overhead used : 1.436580 ns </pre></code></p>
 
 <p><a href="https://github.com/metasoarous/semantic-csv">https://github.com/metasoarous/semantic-csv</a></p>
 </td><td class="codes"><pre class="brush: clojure">(require '[semantic-csv.core :as sc])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(b/bench
+</td><td class="codes"><pre class="brush: clojure">(bench
  (sc/slurp-csv path))</pre></td></tr><tr><td class="docs"><h2>Single pass with (time)</h2>
 
 <p> "Elapsed time: 6094.983367 msecs"</p>
@@ -3030,7 +3035,7 @@ inflated by outliers</pre></code></p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(require '[ultra-csv.core :as ultra])
 (time (ultra/read-csv path))
-(b/bench (ultra/read-csv path))</pre></td></tr><tr><td class="docs"><h2>Single pass:</h2>
+(bench (ultra/read-csv path))</pre></td></tr><tr><td class="docs"><h2>Single pass:</h2>
 
 <p>"Elapsed time: 38.625054 msecs"  </p>
 
@@ -3056,7 +3061,7 @@ Variance from outliers : 1.6389 % Variance is slightly inflated by outliers </pr
 (-&gt; (r ['read.csv path] :session-args {:session-type :renjin})
     r/r-&gt;java
     (r/java-&gt;clj :session-args {:session-type :renjin})))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(b/bench (renjin-read-csv path))</pre></td></tr><tr><td class="docs"><h2>Single pass with (time)</h2>
+</td><td class="codes"><pre class="brush: clojure">(bench (renjin-read-csv path))</pre></td></tr><tr><td class="docs"><h2>Single pass with (time)</h2>
 
 <p> "Elapsed time: 3818.361591 msecs"</p>
 
@@ -3077,7 +3082,9 @@ by outliers</pre></code></p>
 <p><br/><br/> <br />
 <hr /></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><h1>Base R read.csv Rserve (R process)</h1>
-</td><td class="codes"><pre class="brush: clojure">(b/bench
+
+<p>Including the time to copy the data from the R process to Clojure</p>
+</td><td class="codes"><pre class="brush: clojure">(bench
  (-&gt;
   (read-csv path
             :header false
@@ -3098,7 +3105,7 @@ Overhead used : 1.435983 ns</pre></code></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><h1>data.table library on R.</h1>
 
 <p>(usually better memory management and faster than base-r) fread</p>
-</td><td class="codes"><pre class="brush: clojure">(b/bench
+</td><td class="codes"><pre class="brush: clojure">(bench
  (-&gt;
   (fread path
          :header false

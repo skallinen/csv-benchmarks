@@ -119,10 +119,14 @@
 ;; <br/><br/>  
 ;; ---
 
+;; # CSV libraries
+;; What are the clojure options for loading CSV:s? There are a number of libraries out there both native Clojure and through Java, R and Python interop. Interested in the speed here, but good to remember that speed is not everything. CSV:s can have quite some edge cases that many libraries cannot handle.
+;; <br />
+;; Measuring both a single pass and multiple samples. Good to remember that usually for most cases when working with data science you need to do the loading once.
 
 
 ;; # Benchmarking lib
-(require '[criterium.core :as b])
+(require '[criterium.core :refer [bench]])
 ;;  
 ;;  
 ;; <br/><br/>  
@@ -154,7 +158,7 @@
 
 
 ;; # tech.ml.dataset JVM
-(b/bench
+(bench
  (d/->dataset path))
 ;; ## Single pass with (time):
 ;;  "Elapsed time: 1096.673491 msecs"
@@ -178,7 +182,7 @@
 ;; [https://github.com/metasoarous/semantic-csv](https://github.com/metasoarous/semantic-csv)
 (require '[semantic-csv.core :as sc])
 
-(b/bench
+(bench
  (sc/slurp-csv path))
 ;; ## Single pass with (time)
 ;;  "Elapsed time: 6094.983367 msecs"
@@ -207,7 +211,7 @@
 ;;
 (require '[ultra-csv.core :as ultra])
 (time (ultra/read-csv path))
-(b/bench (ultra/read-csv path))
+(bench (ultra/read-csv path))
 
 
 ;; ## Single pass:
@@ -241,7 +245,7 @@
     r/r->java
     (r/java->clj :session-args {:session-type :renjin})))
 
-(b/bench (renjin-read-csv path))
+(bench (renjin-read-csv path))
 ;; ## Single pass with (time)
 ;;  "Elapsed time: 3818.361591 msecs"
 ;;
@@ -266,7 +270,8 @@
 
 
 ;; # Base R read.csv Rserve (R process)
-(b/bench
+;; Including the time to copy the data from the R process to Clojure
+(bench
  (->
   (read-csv path
             :header false
@@ -289,7 +294,7 @@
 
 ;; # data.table library on R.
 ;; (usually better memory management and faster than base-r) fread
-(b/bench
+(bench
  (->
   (fread path
          :header false
