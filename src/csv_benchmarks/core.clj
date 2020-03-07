@@ -158,8 +158,9 @@
  (d/->dataset path))
 ;; ## Single pass with (time):
 ;;  "Elapsed time: 1096.673491 msecs"
-;;  
-;; <pre><code>## Using criterium.core/bench 
+;;
+;; ## Using criterium.core/bench 
+;; <pre><code>
 ;; Evaluation count : 120 in 60 samples of 2 calls.
 ;; Execution time mean : 556.801306 ms
 ;; Execution time std-deviation : 1.482398 ms
