@@ -3034,10 +3034,10 @@ inflated by outliers</pre></code></p>
 <p> <a href="https://github.com/metasoarous/semantic-csv">https://github.com/ngrunwald/ultra-csv</a></p>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(require '[ultra-csv.core :as ultra])
-(time (ultra/read-csv path))
-(bench (ultra/read-csv path))</pre></td></tr><tr><td class="docs"><h2>Single pass:</h2>
+(time (count (ultra/read-csv path)))
+(bench (count (ultra/read-csv path)))</pre></td></tr><tr><td class="docs"><h2>Single pass:</h2>
 
-<p>"Elapsed time: 38.625054 msecs"  </p>
+<p>"Elapsed time: 8164.097362 msecs"</p>
 
 <h2>Using criterium.core/bench</h2>
 

@@ -210,12 +210,12 @@
 
 ;;
 (require '[ultra-csv.core :as ultra])
-(time (ultra/read-csv path))
-(bench (ultra/read-csv path))
+(time (count (ultra/read-csv path)))
+(bench (count (ultra/read-csv path)))
 
 
 ;; ## Single pass:
-;; "Elapsed time: 38.625054 msecs"  
+;; "Elapsed time: 8164.097362 msecs"
 ;;
 ;; ## Using criterium.core/bench 
 ;; <pre><code>"Elapsed time: 38.625054 msecs"
