@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8" content="text/html" http-equiv="Content-Type" /><meta content="FIXME: write description" name="description" /><style type="text/css">/**
+<html><head><meta charset="utf-8" content="text/html" http-equiv="Content-Type" /><meta content="Benchmarking CSV loading functions" name="description" /><style type="text/css">/**
  * SyntaxHighlighter
  * http://alexgorbatchev.com/SyntaxHighlighter
  *
@@ -2865,12 +2865,12 @@ net.brehaut.ClojureTools = (function (SH) {
     build_tree: build_tree
   };
 })(SyntaxHighlighter);
-</script><title>csv-benchmarks -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name"><a href="http://example.com/FIXME">csv-benchmarks</a></h1><h2 class="project-version">0.1.0-SNAPSHOT</h2><br /><p>FIXME: write description</p>
+</script><title>csv-benchmarks -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name">csv-benchmarks</h1><h2 class="project-version">0.1.0-SNAPSHOT</h2><br /><p>Benchmarking CSV loading functions</p>
 </div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.10.0</td></tr><tr><td class="dep-name">org.clojure/data.json</td><td class="dotted"><hr /></td><td class="dep-version">0.2.7</td></tr><tr><td class="dep-name">clj-python/libpython-clj</td><td class="dotted"><hr /></td><td class="dep-version">1.36</td></tr><tr><td class="dep-name">scicloj/clojisr</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0-BETA8-SNAPSHOT</td></tr><tr><td class="dep-name">org.clojure/data.csv</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">semantic-csv</td><td class="dotted"><hr /></td><td class="dep-version">0.2.1-alpha1</td></tr><tr><td class="dep-name">criterium</td><td class="dotted"><hr /></td><td class="dep-version">0.4.5</td></tr><tr><td class="dep-name">ultra-csv</td><td class="dotted"><hr /></td><td class="dep-version">0.2.3</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#csv-benchmarks.core">csv-benchmarks.core</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#csv-benchmarks.core" name="csv-benchmarks.core"><h1 class="project-name">csv-benchmarks.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns csv-benchmarks.core)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(require '[clojure.java.shell :refer [sh]])
-(sh &quot;bash&quot; &quot;-c&quot; &quot;kill $(ps aux | grep 'library(Rserve)' | awk '{print $2}')&quot;)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(r/discard-all-sessions)</pre></td></tr><tr><td class="docs">
+(sh &quot;bash&quot; &quot;-c&quot; &quot;kill $(ps aux | grep 'library(Rserve)' | awk '{print $2}')&quot;)</pre></td></tr><tr><td class="docs"><p>(r/discard-all-sessions)</p>
+</td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(require '[clojisr.v1.r :as r :refer
            [r eval-r-&gt;java r-&gt;java java-&gt;r java-&gt;clj java-&gt;naive-clj clj-&gt;java
             r-&gt;clj clj-&gt;r -&gt;code r+ colon]]
@@ -3000,6 +3000,8 @@ Overhead used : 1.436580 ns </pre></code></p>
 <p><br/><br/> <br />
 <hr /></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><h1>semantic-csv JVM</h1>
+
+<p><a href="https://github.com/metasoarous/semantic-csv">https://github.com/metasoarous/semantic-csv</a></p>
 </td><td class="codes"><pre class="brush: clojure">(require '[semantic-csv.core :as sc])</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(b/bench
  (sc/slurp-csv path))</pre></td></tr><tr><td class="docs"><h2>Single pass with (time)</h2>
@@ -3023,6 +3025,9 @@ inflated by outliers</pre></code></p>
 <p><br/><br/> <br />
 <hr /></p>
 </td><td class="codes"></td></tr><tr><td class="docs"><h1>ultra-csv library JVM</h1>
+
+<p> <a href="https://github.com/metasoarous/semantic-csv">https://github.com/ngrunwald/ultra-csv</a></p>
+</td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(require '[ultra-csv.core :as ultra])
 (time (ultra/read-csv path))
 (b/bench (ultra/read-csv path))</pre></td></tr><tr><td class="docs"><h2>Single pass:</h2>

@@ -3,7 +3,7 @@
 (require '[clojure.java.shell :refer [sh]])
 (sh "bash" "-c" "kill $(ps aux | grep 'library(Rserve)' | awk '{print $2}')")
 
-(r/discard-all-sessions)
+;;(r/discard-all-sessions)
 
 (require '[clojisr.v1.r :as r :refer
            [r eval-r->java r->java java->r java->clj java->naive-clj clj->java
@@ -175,6 +175,7 @@
 
 
 ;; # semantic-csv JVM
+;; [https://github.com/metasoarous/semantic-csv](https://github.com/metasoarous/semantic-csv)
 (require '[semantic-csv.core :as sc])
 
 (b/bench
@@ -201,6 +202,8 @@
 
 
 ;; # ultra-csv library JVM
+;; ;; [https://github.com/ngrunwald/ultra-csv](https://github.com/metasoarous/semantic-csv)
+
 ;;
 (require '[ultra-csv.core :as ultra])
 (time (ultra/read-csv path))
